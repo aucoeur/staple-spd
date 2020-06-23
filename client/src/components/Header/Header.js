@@ -13,7 +13,6 @@ function Header(props) {
             </div>
 
             <div className="authbuttons">
-                <ModalButton />
                 <button>Login</button>
                 <button>Sign Up</button>
             </div>
