@@ -1,12 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import DisplayMarkdown from './components/DisplayMarkdown/DisplayMarkDown'
+import Header from './components/Header/Header';
+import DisplayMarkdown from './components/DisplayMarkdown/DisplayMarkDown';
 
 function App() {
 
   return (
     <div className="App">
+      <Header logo="" companyName="test"/>
       <DisplayMarkdown />
     </div>
   );
