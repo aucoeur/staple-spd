@@ -1,6 +1,6 @@
-.header {
+.footer {
     background-color: black;
     color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
