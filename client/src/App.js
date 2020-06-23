@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import DisplayMarkdown from './components/DisplayMarkDown'
+import DisplayMarkdown from './components/DisplayMarkdown/DisplayMarkDown'
 
 function App() {
 

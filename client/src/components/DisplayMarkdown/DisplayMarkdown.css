@@ -1,0 +1,12 @@
+.container {
+    width: calc(100% - 80px);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 40px ;
+}
+
+.preview, .editor {
+    text-align: left;
+}
