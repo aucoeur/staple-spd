@@ -8,9 +8,12 @@ app = FlaskAPI(__name__)
 app.config['MONGO_DBNAME'] = 'staple'
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/staple'
 
+#used to encode the session (which in theory is just an encrypted cookie)
+app.config['SECRET_KEY'] = secret_key
+
 mongo = PyMongo(app)
 users = mongo.db.users    #creates db for users
-apis = mongo              #creates db for api 
+docs = mongo.db.docs      #creates db for documentations
 
 @app.route('/')
 def index():
@@ -47,20 +50,18 @@ def register():
 
     #submitting a new user document
     if request.method == 'POST':
-        existing_user = users.find_one({'name' : request.form['username']}) #check to see if theres a user with the same inputted username
+        existing_user = users.find_one({'username' : request.form['username']}) #check to see if theres a user with the same inputted username
         
-        #if username doesnt exist
+        #if username doesnt exist, register new user
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
-            users.insert({'name' : request.form['username'], 'password' : hashpass})
+            users.insertOne({'name' : request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
-            return redirect(url_for('index'))
+            return redirect(url_for('login'))           #redirect them to login after registering
         
         #return None if the username exists already
         return None
 
-    
-    return {'user': }
 
 # @app.route('/profile')
 # def profile():
@@ -68,14 +69,45 @@ def register():
 
 # @app.route('/view/<api_id>')
 # def view():
-#     return render_template('view.html')
+    
+#     return r
 
-# @app.route('/edit/<api_id>/')
-# def edit():
-#    if session.get("username", None) is not None:
-#     return render_template('edit.html')
-#   else:
-#     return redirect(url_for('login'))
+@app.route('/edit/<api_id>/', methods=['POST', 'GET'])
+def edit():
+    if request.method == "GET":
+        if session.get("username", None) is not None:
+            return render_template('edit.html')
+        else:
+            return redirect(url_for('login'))
+
+    if request.method == 'POST':
+
+@app.route('/create/', methods=['POST', 'GET'])
+def create():
+    if request.method == "GET":
+        #checks to see if the user is logged in before allowing edits
+        if session.get("username", None) is not None:
+            return render_template('edit.html')
+        #redirects to login page if not logged in
+        else:
+            return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        title = request.form['username'].upper()
+        existing_docs = users.find_one({'username' : title})
+
+        #if api doest exist alreayd create new api + docs
+        if existing_docs is None:
+            docs = {
+                'api_name' : title, 
+                'documentation': request.form['doc']
+            }
+            docs.insertOne(docs)
+            return redirect(url_for('view', {'info' : docs }))           #redirect them to login after registering
+        
+        #return None if the username exists already
+        return None
+
 
 #logout
 @app.route('/logout')
