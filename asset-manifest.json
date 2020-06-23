@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/staple/static/css/main.8bbcb0a7.chunk.css",
+    "main.js": "/staple/static/js/main.e179880e.chunk.js",
+    "main.js.map": "/staple/static/js/main.e179880e.chunk.js.map",
+    "runtime-main.js": "/staple/static/js/runtime-main.d4a6a492.js",
+    "runtime-main.js.map": "/staple/static/js/runtime-main.d4a6a492.js.map",
+    "static/js/2.529988b1.chunk.js": "/staple/static/js/2.529988b1.chunk.js",
+    "static/js/2.529988b1.chunk.js.map": "/staple/static/js/2.529988b1.chunk.js.map",
+    "index.html": "/staple/index.html",
+    "precache-manifest.791d0a09bb03c5347d2469d2478d5ad8.js": "/staple/precache-manifest.791d0a09bb03c5347d2469d2478d5ad8.js",
+    "service-worker.js": "/staple/service-worker.js",
+    "static/css/main.8bbcb0a7.chunk.css.map": "/staple/static/css/main.8bbcb0a7.chunk.css.map",
+    "static/js/2.529988b1.chunk.js.LICENSE.txt": "/staple/static/js/2.529988b1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d4a6a492.js",
+    "static/js/2.529988b1.chunk.js",
+    "static/css/main.8bbcb0a7.chunk.css",
+    "static/js/main.e179880e.chunk.js"
+  ]
+}
