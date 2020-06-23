@@ -47,21 +47,20 @@ def register():
 
     #submitting a new user document
     if request.method == 'POST':
-        users = mongo.db.users      #get list of all users
         existing_user = users.find_one({'name' : request.form['username']}) #check to see if theres a user with the same inputted username
         
-        #if username doest exist
+        #if username doesnt exist
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
             users.insert({'name' : request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
             return redirect(url_for('index'))
         
-        #the username exists already, choose another
-        return 'That username already exists!'
+        #return None if the username exists already
+        return None
 
     
-    return render_template('register.html')
+    return {'user': }
 
 # @app.route('/profile')
 # def profile():
@@ -71,7 +70,7 @@ def register():
 # def view():
 #     return render_template('view.html')
 
-# @app.route('/edit/<api_id>/<user_id>')
+# @app.route('/edit/<api_id>/')
 # def edit():
 #    if session.get("username", None) is not None:
 #     return render_template('edit.html')
