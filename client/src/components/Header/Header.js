@@ -1,5 +1,6 @@
 import React from 'react'
 import './Header.css'
+import ModalButton from '../Modal/ModalButton.js'
 
 function Header(props) {
     const { logo, companyName } = props
@@ -12,8 +13,9 @@ function Header(props) {
             </div>
 
             <div className="authbuttons">
+                <ModalButton />
                 <button>Login</button>
-                <button>Log Out</button>
+                <button>Sign Up</button>
             </div>
         </div>
     )
