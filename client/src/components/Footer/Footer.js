@@ -4,9 +4,9 @@ import './Footer.css'
 function Footer(props) {
 
     return (
-        <div className="footer">
+        <footer className="footer">
             <span>:)</span>
-        </div>
+        </footer>
     )
 }
 

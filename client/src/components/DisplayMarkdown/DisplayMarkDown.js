@@ -18,9 +18,8 @@ class DisplayMarkdown extends Component {
 
     render() {
         return (
-            <div>
-
-                <div className="container">
+            <div className='DisplayMarkdown'>
+                <div className="row">
                     <div className="inner-header">
                         <h1>Editor</h1>
                     </div>
@@ -28,14 +27,13 @@ class DisplayMarkdown extends Component {
                         <h1>Preview</h1>
                     </div>
                 </div>
-                <div class="container">
+                <div className="row long">
                     <div className="editor">
                         <textarea value={this.state.value} onChange={this.handleChange}/>
                     </div>
                     <div className="preview">
-                        <ReactMarkdown 
-                            source={this.state.value}
-                        />
+                        <ReactMarkdown                                        source={this.state.value}
+                            />
                     </div>
                 </div>
 
