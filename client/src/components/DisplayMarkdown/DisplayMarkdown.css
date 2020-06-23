@@ -7,6 +7,22 @@
     grid-column-gap: 40px ;
 }
 
-.preview, .editor {
+.inner-header {
+    text-align: left;
+}
+
+.editor > textarea {
+  flex: 1;
+}
+
+textarea {
+    border-color: rgb(38, 38, 69);
+    height: 100%;
+}
+
+.preview {
+    border-top: 1px solid rgb(38, 38, 69);
+    border-radius: 10px;
+    border-color:  rgb(38, 38, 69);
     text-align: left;
 }

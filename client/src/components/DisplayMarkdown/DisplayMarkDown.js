@@ -6,7 +6,7 @@ class DisplayMarkdown extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: ''
+            value: `# Markdown Editor\n\`code block\`\n\n## Subheader\n`
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,19 +21,21 @@ class DisplayMarkdown extends Component {
             <div>
 
                 <div className="container">
-                    <div className="editor">
+                    <div className="inner-header">
                         <h1>Editor</h1>
                     </div>
-                    <div className="preview">
+                    <div className="inner-header">
                         <h1>Preview</h1>
                     </div>
                 </div>
                 <div class="container">
                     <div className="editor">
-                        <textarea value={this.state.value} onChange={this.handleChange} cols={75} rows={60} />
+                        <textarea value={this.state.value} onChange={this.handleChange}/>
                     </div>
                     <div className="preview">
-                        <ReactMarkdown source={this.state.value} />
+                        <ReactMarkdown 
+                            source={this.state.value}
+                        />
                     </div>
                 </div>
 
