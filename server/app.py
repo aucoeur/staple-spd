@@ -1,19 +1,24 @@
-from flask import Flask, render_template, url_for, request, session, redirect
+from bson.objectid import ObjectId
+import bcrypt
+from flask import Flask, flash, render_template, url_for, request, session, redirect
 from flask_pymongo import PyMongo
 from flask_api import FlaskAPI
-import bcrypt
+import json
+import os
+from pymongo import MongoClient
 
 app = FlaskAPI(__name__)
 
-app.config['MONGO_DBNAME'] = 'staple'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/staple'
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/staple')
+client = MongoClient(host=f'{host}?retryWrites=false')
+db = client.get_default_database()
 
 #used to encode the session (which in theory is just an encrypted cookie)
 app.config['SECRET_KEY'] = secret_key
 
-mongo = PyMongo(app)
-users = mongo.db.users    #creates db for users
-docs = mongo.db.docs      #creates db for documentations
+# mongo = PyMongo(app)
+users = db.users    #creates db for users
+docs = db.docs      #creates db for documentations
 
 @app.route('/')
 def index():
@@ -32,13 +37,14 @@ def login():
     if request.method == "POST":
         if login_user:
             #encrypts user inputted password and see if it matches the encrypted password in the document found earlier
-            if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
+            if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password']) == login_user['password']:
                 session['username'] = request.form['username']
                 #return redirect(url_for('profile')) #do we need a profile page? ask padyn later
                 return {'user' : login_user}
 
     #if invalid login credentials
-    return None
+    flash('Invalid login')
+    return redirect(url_for('login'))
     #ideally it says invalid login and then directs you back to the login page
     #return redirect(request.url)       #back to the login page
 
@@ -60,8 +66,8 @@ def register():
             return redirect(url_for('login'))           #redirect them to login after registering
         
         #return None if the username exists already
+        flash('Username/password exists')
         return None
-
 
 # @app.route('/profile')
 # def profile():
@@ -81,6 +87,7 @@ def edit():
             return redirect(url_for('login'))
 
     if request.method == 'POST':
+        pass
 
 @app.route('/create/', methods=['POST', 'GET'])
 def create():
@@ -96,28 +103,24 @@ def create():
         title = request.form['username'].upper()
         existing_docs = users.find_one({'username' : title})
 
-        #if api doest exist alreayd create new api + docs
+        #if api doest exist already create new api + docs
         if existing_docs is None:
-            docs = {
+            doc = {
                 'api_name' : title, 
                 'documentation': request.form['doc']
             }
-            docs.insertOne(docs)
-            return redirect(url_for('view', {'info' : docs }))           #redirect them to login after registering
+            doc_info = docs.insertOne(doc)
+            return redirect(url_for('view', doc_info=doc_info))           #redirect them to login after registering
         
         #return None if the username exists already
         return None
 
-
 #logout
 @app.route('/logout')
 def logout():
-    #after logging out return user to the page they were on, 
-    if not 'edit.html':
-        return redirect(request.url)
-    #unless on an editing page, the redirect to home page
-    else:
-        return redirect(url_for('index'))
+    #after logging out, return user to the page they were on, 
+    session.clear()
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
