@@ -1,7 +1,7 @@
-from bson.objectid import ObjectId
 import bcrypt
+from bson.objectid import ObjectId
 from flask import Flask, flash, render_template, url_for, request, session, redirect
-from flask_pymongo import PyMongo
+# from flask_pymongo import PyMongo
 from flask_api import FlaskAPI
 import json
 import os
@@ -78,17 +78,6 @@ def register():
     
 #     return r
 
-@app.route('/edit/<api_id>/', methods=['POST', 'GET'])
-def edit():
-    if request.method == "GET":
-        if session.get("username", None) is not None:
-            return render_template('edit.html')
-        else:
-            return redirect(url_for('login'))
-
-    if request.method == 'POST':
-        pass
-
 @app.route('/create/', methods=['POST', 'GET'])
 def create():
     if request.method == "GET":
@@ -110,7 +99,7 @@ def create():
                 'documentation': request.form['doc']
             }
             doc_info = docs.insertOne(doc)
-            return redirect(url_for('view', doc_info=doc_info))           #redirect them to login after registering
+            return redirect(url_for('view', doc_info=doc_info))
         
         #return None if the username exists already
         return None
