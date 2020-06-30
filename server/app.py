@@ -33,7 +33,6 @@ def login():
     #submitting a login request
     login_user = users.find_one({'name' : request.form['username']})    #check to see if theres a user with the same inputted username
 
-    #not sure if we need to the if statement? ask padyn later
     if request.method == "POST":
         if login_user:
             #encrypts user inputted password and see if it matches the encrypted password in the document found earlier
@@ -41,9 +40,15 @@ def login():
                 session['username'] = request.form['username']
                 #return redirect(url_for('profile')) #do we need a profile page? ask padyn later
                 return {'user' : login_user}
+            else:
+                flash('Invalid login') 
+                return {'user': None}
+        else:
+            flash('Invalid login') 
+            return {'user': None}
 
     #if invalid login credentials
-    flash('Invalid login')
+    flash('Invalid login')      
     return redirect(url_for('login'))
     #ideally it says invalid login and then directs you back to the login page
     #return redirect(request.url)       #back to the login page
@@ -87,29 +92,39 @@ def edit():
             return redirect(url_for('login'))
 
     if request.method == 'POST':
-        pass
+        existing_docs = docs.find_one({'_id': request.args['api_id']})      #finds documentation you want
+        #if api doest exist already create new api + docs
+        if existing_docs is None:
+            doc = {
+                'api_name' : request.form['doc'], 
+                'documentation': request.form['doc']
+            }
+            doc_info = docs.insertOne(doc)
+            return redirect(url_for('view', doc_info=doc_info))           #redirect them to login after registering
+        
 
 @app.route('/create/', methods=['POST', 'GET'])
 def create():
     if request.method == "GET":
         #checks to see if the user is logged in before allowing edits
-        if session.get("username", None) is not None:
+        if session.get("usernam", None) is not None:
             return render_template('edit.html')
         #redirects to login page if not logged in
         else:
             return redirect(url_for('login'))
 
     if request.method == 'POST':
-        title = request.form['username'].upper()
-        existing_docs = users.find_one({'username' : title})
+        title = request.form.get['api_name'].upper()      #make API uppercase
+        existing_docs = docs.find_one({'api_name' : title}) #check to see if theere docs with that title already
 
         #if api doest exist already create new api + docs
         if existing_docs is None:
+            #create new dictionary to insert to db
             doc = {
                 'api_name' : title, 
-                'documentation': request.form['doc']
-            }
-            doc_info = docs.insertOne(doc)
+                'documentation': request.form.get['doc']
+            }   
+            doc_info = docs.insertOne(doc)      #insert to db
             return redirect(url_for('view', doc_info=doc_info))           #redirect them to login after registering
         
         #return None if the username exists already
@@ -118,9 +133,8 @@ def create():
 #logout
 @app.route('/logout')
 def logout():
-    #after logging out, return user to the page they were on, 
-    session.clear()
-    return redirect(url_for('index'))
+    session.clear()     #clear cookies
+    return redirect(url_for('index'))       #after logging out, return user to the page they were on, 
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
