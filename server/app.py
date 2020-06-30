@@ -14,7 +14,7 @@ client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
 
 #used to encode the session (which in theory is just an encrypted cookie)
-app.config['SECRET_KEY'] = secret_key
+# app.config['SECRET_KEY'] = secret_key
 
 # mongo = PyMongo(app)
 users = db.users    #creates db for users
