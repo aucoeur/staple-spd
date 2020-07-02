@@ -2,7 +2,7 @@ import bcrypt
 from bson.objectid import ObjectId
 from flask import Flask, flash, render_template, url_for, request, session, redirect
 # from flask_pymongo import PyMongo
-from flask_api import FlaskAPI
+from flask_api import FlaskAPI, status, exceptions
 import json
 import os
 from pymongo import MongoClient
@@ -42,10 +42,10 @@ def login():
                 return {'user' : login_user}
             else:
                 flash('Invalid login') 
-                return {'user': None}
+                return {'response': status.HTTP_401_UNAUTHORIZED }
         else:
             flash('Invalid login') 
-            return {'user': None}
+            return {'response': status.HTTP_401_UNAUTHORIZED }
 
     #if invalid login credentials
     flash('Invalid login')      
@@ -62,7 +62,7 @@ def register():
     #submitting a new user document
     if request.method == 'POST':
         existing_user = users.find_one({'username' : request.form['username']}) #check to see if theres a user with the same inputted username
-        
+        #maybe put all the below in a loop?
         #if username doesnt exist, register new user
         if existing_user is None:
             hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
@@ -72,7 +72,7 @@ def register():
         
         #return None if the username exists already
         flash('Username/password exists')
-        return None
+        return {'response': status.HTTP_401_UNAUTHORIZED }
 
 # @app.route('/profile')
 # def profile():
@@ -100,7 +100,7 @@ def edit():
                 'documentation': request.form['doc']
             }
             doc_info = docs.insertOne(doc)
-            return redirect(url_for('view', doc_info=doc_info))           #redirect them to login after registering
+            return redirect(url_for('view', id=doc_info._id))           #redirect them to login after registering
         
 
 @app.route('/create/', methods=['POST', 'GET'])
@@ -125,10 +125,10 @@ def create():
                 'documentation': request.form.get['doc']
             }   
             doc_info = docs.insertOne(doc)      #insert to db
-            return redirect(url_for('view', doc_info=doc_info))           #redirect them to login after registering
+            return redirect(url_for('view', id=doc_info._id))           #redirect them to login after registering
         
         #return None if the username exists already
-        return None
+        return {'response': status.HTTP_401_UNAUTHORIZED }
 
 #logout
 @app.route('/logout')
