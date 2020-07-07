@@ -6,6 +6,9 @@ from flask_api import FlaskAPI, status, exceptions
 import json
 import os
 from pymongo import MongoClient
+#from dotenv import load_dotenv
+
+#load_dotenv()
 
 app = FlaskAPI(__name__)
 
@@ -14,16 +17,18 @@ client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
 
 #used to encode the session (which in theory is just an encrypted cookie)
-# app.config['SECRET_KEY'] = secret_key
+#app.config['SECRET_KEY'] = secret_key
 
 # mongo = PyMongo(app)
 users = db.users    #creates db for users
 docs = db.docs      #creates db for documentations
 
+#home (change what to return to?)
 @app.route('/')
 def index():
     return render_template('index.html')
 
+#login page
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     #return login page
@@ -53,6 +58,7 @@ def login():
     #ideally it says invalid login and then directs you back to the login page
     #return redirect(request.url)       #back to the login page
 
+#register new user
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     #return login page
@@ -78,16 +84,19 @@ def register():
 # def profile():
 #     return render_template('profile.html', name=users.username)
 
-# @app.route('/view/<api_id>')
-# def view():
-    
-#     return r
+#view 1 API's Docs
+@app.route('/view/<api_id>', methods=['GET'])
+def view():
+    return {'response': docs.find_one({'_id': request.args['api_id']})}
 
-@app.route('/edit/<api_id>/', methods=['POST', 'GET'])
+#edit an API's doc's
+@app.route('/edit/<api_id>', methods=['POST', 'GET'])
 def edit():
     if request.method == "GET":
+        #if the person isnt logged in
         if session.get("username", None) is not None:
             return render_template('edit.html')
+        #person is logged
         else:
             return redirect(url_for('login'))
 
@@ -103,7 +112,7 @@ def edit():
             return redirect(url_for('view', id=doc_info._id))           #redirect them to login after registering
         
 
-@app.route('/create/', methods=['POST', 'GET'])
+@app.route('/create', methods=['POST', 'GET'])
 def create():
     if request.method == "GET":
         #checks to see if the user is logged in before allowing edits
