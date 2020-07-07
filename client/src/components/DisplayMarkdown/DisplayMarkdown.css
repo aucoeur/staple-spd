@@ -11,6 +11,26 @@
     grid-column-gap: 40px;
 }
 
+.save-button {
+    padding: 1em;
+}
+
+input[type='button'] {
+  width: 78px;
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  border: 1px solid #000;
+  border-radius: 0.5em;
+  outline: none;
+}
+
+input[type='button']:hover {
+  color: #000;
+  background-color: #fff;
+  outline: none;
+}
+
 .long {
     height: 75vh;
 }

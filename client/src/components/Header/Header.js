@@ -9,12 +9,12 @@ function Header(props) {
         <div className="header">
             <div className="badge">
                 <div className="logo">{logo}</div>
-                <div>{companyName}</div>
+                <h1>{companyName}</h1>
             </div>
 
-            <div className="authbuttons">
-                <button>Login</button>
-                <button>Sign Up</button>
+            <div className="authButtons">
+                <input type="button" value="Login" />
+                <input type="button" value="Sign Up" />
             </div>
         </div>
     )

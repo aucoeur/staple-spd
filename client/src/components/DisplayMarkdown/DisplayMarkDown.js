@@ -36,7 +36,9 @@ class DisplayMarkdown extends Component {
                             />
                     </div>
                 </div>
-
+                <div className="row save-button">
+                    <input type="button" value="save" />
+                </div>
             </div>
         );
     }
