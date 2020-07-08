@@ -71,8 +71,8 @@ def register():
         #maybe put all the below in a loop?
         #if username doesnt exist, register new user
         if existing_user is None:
-            hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
-            users.insertOne({'name' : request.form['username'], 'password' : hashpass})
+            #hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
+            db.users.insert_one({'name' : request.form['username'], 'password' : request.form['password']})#hashpass})
             session['username'] = request.form['username']
             return redirect(url_for('login'))           #redirect them to login after registering
         
