@@ -1,6 +1,6 @@
 import bcrypt
 from bson.objectid import ObjectId
-from flask import Flask, flash, render_template, url_for, request, session, redirect
+from flask import Flask, flash, render_template, url_for, request, session, redirect, jsonify
 # from flask_pymongo import PyMongo
 from flask_api import FlaskAPI, status, exceptions
 import json
@@ -24,7 +24,7 @@ users = db.users    #creates db for users
 docs = db.docs      #creates db for documentations
 
 #home (change what to return to?)
-@app.route('/')
+@app.route('/staple')
 def index():
     return render_template('index.html')
 
@@ -144,6 +144,11 @@ def create():
 def logout():
     session.clear()     #clear cookies
     return redirect(url_for('index'))       #after logging out, return user to the page they were on, 
+
+@app.route('/test')
+def test():
+    # return '{hello: world}'
+    return jsonify(hello='hello')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
