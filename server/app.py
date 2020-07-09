@@ -6,9 +6,9 @@ from flask_api import FlaskAPI, status, exceptions
 import json
 import os
 from pymongo import MongoClient
-#from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-#load_dotenv()
+# load_dotenv()
 
 app = FlaskAPI(__name__)
 
@@ -17,7 +17,7 @@ client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
 
 #used to encode the session (which in theory is just an encrypted cookie)
-#app.config['SECRET_KEY'] = secret_key
+app.config['SECRET_KEY'] = 'Xvm8VilNnE4E8t0_FNgQCQ'#secret_key
 
 # mongo = PyMongo(app)
 users = db.users    #creates db for users
@@ -42,7 +42,7 @@ def login():
         if login_user:
             #encrypts user inputted password and see if it matches the encrypted password in the document found earlier
             if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password']) == login_user['password']:
-                session['username'] = request.form['username']
+                session['user'] = request.form['username']
                 #return redirect(url_for('profile')) #do we need a profile page? ask padyn later
                 return {'user' : login_user}
             else:
@@ -73,7 +73,7 @@ def register():
         if existing_user is None:
             #hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
             db.users.insert_one({'name' : request.form['username'], 'password' : request.form['password']})#hashpass})
-            session['username'] = request.form['username']
+            session['user'] = request.form['username']
             return redirect(url_for('login'))           #redirect them to login after registering
         
         #return None if the username exists already
