@@ -1,3 +1,4 @@
+import os
 import bcrypt
 from bson.objectid import ObjectId
 from flask import Flask, flash, render_template, url_for, request, session, redirect
@@ -6,9 +7,9 @@ from flask_api import FlaskAPI, status, exceptions
 import json
 import os
 from pymongo import MongoClient
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-# load_dotenv()
+load_dotenv()
 
 app = FlaskAPI(__name__)
 
@@ -17,7 +18,7 @@ client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
 
 #used to encode the session (which in theory is just an encrypted cookie)
-app.config['SECRET_KEY'] = 'Xvm8VilNnE4E8t0_FNgQCQ'#secret_key
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'changeme')
 
 # mongo = PyMongo(app)
 users = db.users    #creates db for users
