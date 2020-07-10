@@ -37,15 +37,16 @@ def login():
         return render_template('login.html')
 
     #submitting a login request
-    login_user = users.find_one({'name' : request.form['username']})    #check to see if theres a user with the same inputted username
+    login_user = db.users.find_one({'name' : request.form['username']})    #check to see if theres a user with the same inputted username
 
     if request.method == "POST":
         if login_user:
             #encrypts user inputted password and see if it matches the encrypted password in the document found earlier
-            if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password']) == login_user['password']:
+            #if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password']) == login_user['password']:
+            if request.form['password'] == login_user['password']:
                 session['user'] = request.form['username']
                 #return redirect(url_for('profile')) #do we need a profile page? ask padyn later
-                return {'user' : login_user}
+                return {'user' : login_user['password']}#login_user}
             else:
                 flash('Invalid login') 
                 return {'response': status.HTTP_401_UNAUTHORIZED }
@@ -54,8 +55,8 @@ def login():
             return {'response': status.HTTP_401_UNAUTHORIZED }
 
     #if invalid login credentials
-    flash('Invalid login')      
-    return redirect(url_for('login'))
+    # flash('Invalid login')      
+    # return redirect(url_for('login'))
     #ideally it says invalid login and then directs you back to the login page
     #return redirect(request.url)       #back to the login page
 
@@ -68,7 +69,7 @@ def register():
 
     #submitting a new user document
     if request.method == 'POST':
-        existing_user = users.find_one({'username' : request.form['username']}) #check to see if theres a user with the same inputted username
+        existing_user = db.users.find_one({'name' : request.form['username']}) #check to see if theres a user with the same inputted username
         #maybe put all the below in a loop?
         #if username doesnt exist, register new user
         if existing_user is None:
