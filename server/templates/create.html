@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="POST" action="/posts/new">
+<form method="POST" action="/create">
     <div class="row">
         <div class="col-sm-4 col-sm-offset-4">
             <form action="/posts/new" method="post">
-            <legend>Edit API Documentation</legend>
+            <legend>Create New API Documentation</legend>
             <div class="form-group">
                 <label for="post-title">API Name</label>
-                <input type="text" name="api" class="form-control" id="post-title" placeholder="Title">
+                <input type="text" name="api_name" class="form-control" id="post-title" placeholder="Title">
             </div>
             <div class="form-group">
                 <label for="post-url">Documentation</label>
