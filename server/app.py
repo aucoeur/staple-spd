@@ -1,7 +1,7 @@
 import os
 import bcrypt
 from bson.objectid import ObjectId
-from flask import Flask, flash, render_template, url_for, request, session, redirect
+from flask import Flask, render_template, url_for, request, session, redirect
 # from flask_pymongo import PyMongo
 from flask_api import FlaskAPI, status, exceptions
 import json
@@ -45,10 +45,7 @@ def login():
 
             #checks to see if password from form matches the found user
             if request.form['password'] == login_user['password']:
-                session['user'] = request.form['username']     #set session user to the logged in user
-
-                #Profile page Feature to be added later #return redirect(url_for('profile'))
-
+                session['username'] = request.form['username']     #set session user to the logged in user
                 #return {'user' : login_user['name']}#login_user} #return the user object or username? decide later
                 return render_template('index.html')    #FOR TESTING ONLY, uncomment above for final
             else:
@@ -56,9 +53,9 @@ def login():
                 #return {'response': status.HTTP_401_UNAUTHORIZED }
                 render_template('failure.html')    #FOR TESTING ONLY, uncomment above for final
         else:
-            flash('Invalid login') 
+            return 'Invalid login information'
             #return {'failure': status.HTTP_401_UNAUTHORIZED }
-            render_template('failure.html')    #FOR TESTING ONLY, uncomment above for final
+            # render_template('failure.html')    #FOR TESTING ONLY, uncomment above for final
 
     #if invalid login credentials
     # flash('Invalid login')      
@@ -85,8 +82,8 @@ def register():
             return redirect(url_for('login'))           #redirect them to login after registering
         
         #return None if the username exists already
-        flash('Username/password exists')
-        return {'response': status.HTTP_401_UNAUTHORIZED }
+        return 'Username/password exists'
+    return {'response': status.HTTP_401_UNAUTHORIZED }
 
 #view a single API's Docs
 @app.route('/view/<api_id>', methods=['GET'])
