@@ -49,7 +49,7 @@ def login():
 
                 #Profile page Feature to be added later #return redirect(url_for('profile'))
 
-                #return {'user' : login_user['password']}#login_user} #return the user object or username? decide later
+                #return {'user' : login_user['name']}#login_user} #return the user object or username? decide later
                 return render_template('index.html')    #FOR TESTING ONLY, uncomment above for final
             else:
                 flash('Invalid login') 
@@ -87,11 +87,6 @@ def register():
         #return None if the username exists already
         flash('Username/password exists')
         return {'response': status.HTTP_401_UNAUTHORIZED }
-
-#future profile feature
-# @app.route('/profile')
-# def profile():
-#     return render_template('profile.html', name=users.username)
 
 #view a single API's Docs
 @app.route('/view/<api_id>', methods=['GET'])
