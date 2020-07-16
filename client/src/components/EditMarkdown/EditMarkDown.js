@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import './DisplayMarkdown.css'
+import './EditMarkdown.css'
 
-class DisplayMarkdown extends Component {
+class EditMarkdown extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,18 +13,6 @@ class DisplayMarkdown extends Component {
         // this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
-    // handleChange(event) {
-    //     const target = event.target;
-    //     const name = target.name;
-    //     const value = name.value;
-
-    //     this.setState({
-    //         ...this.state,
-    //         [name]: value
-    //     });
-    //     // console.log(this.state)
-    // }
 
     handleChange = (name) => (event) => {
         const updatedState = {
@@ -95,4 +83,4 @@ class DisplayMarkdown extends Component {
     }
 }
 
-export default DisplayMarkdown;
+export default EditMarkdown;

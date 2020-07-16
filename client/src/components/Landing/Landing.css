@@ -1,0 +1,44 @@
+.jumbotron-bg {
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    /* If our image is bright, we can tone it down with this darker overlay */
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.jumbotron-bg:after {
+    content: "";
+    position: absolute;
+    background-image: url("/static/staple/images/paper_stack.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    opacity: 0.8;
+    /* Tone the image down further by giving it transparency */
+}
+
+.jumbo-text {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+h1 {
+    font-family: 'Alata', sans-serif;
+}
+
+.card {
+    border: 0px;
+}
+
+.container-fluid {
+    margin-bottom: 2rem;
+}
+
+.blurb {
+    background: rgba(255, 255, 255, 1);
+    padding-top: 15px;
+}

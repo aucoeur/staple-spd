@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import DisplayMarkdown from './components/DisplayMarkdown/DisplayMarkDown';
+import Landing from './components/Landing/Landing'
+import EditMarkdown from './components/EditMarkdown/EditMarkDown';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
@@ -9,7 +10,8 @@ function App() {
   return (
     <div className="App">
       <Header logo="" companyName="test"/>
-      <DisplayMarkdown />
+      <Landing />
+      <EditMarkdown />
       <Footer />
     </div>
   )
