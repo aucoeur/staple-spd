@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/staple/static/css/main.8bbcb0a7.chunk.css",
-    "main.js": "/staple/static/js/main.e179880e.chunk.js",
-    "main.js.map": "/staple/static/js/main.e179880e.chunk.js.map",
+    "main.css": "/staple/static/css/main.54e4a5b9.chunk.css",
+    "main.js": "/staple/static/js/main.9b5c0aca.chunk.js",
+    "main.js.map": "/staple/static/js/main.9b5c0aca.chunk.js.map",
     "runtime-main.js": "/staple/static/js/runtime-main.d4a6a492.js",
     "runtime-main.js.map": "/staple/static/js/runtime-main.d4a6a492.js.map",
-    "static/js/2.529988b1.chunk.js": "/staple/static/js/2.529988b1.chunk.js",
-    "static/js/2.529988b1.chunk.js.map": "/staple/static/js/2.529988b1.chunk.js.map",
+    "static/js/2.37c437bc.chunk.js": "/staple/static/js/2.37c437bc.chunk.js",
+    "static/js/2.37c437bc.chunk.js.map": "/staple/static/js/2.37c437bc.chunk.js.map",
     "index.html": "/staple/index.html",
-    "precache-manifest.791d0a09bb03c5347d2469d2478d5ad8.js": "/staple/precache-manifest.791d0a09bb03c5347d2469d2478d5ad8.js",
+    "precache-manifest.8bdc6fb5de46de1dbc5859a1ac99e51c.js": "/staple/precache-manifest.8bdc6fb5de46de1dbc5859a1ac99e51c.js",
     "service-worker.js": "/staple/service-worker.js",
-    "static/css/main.8bbcb0a7.chunk.css.map": "/staple/static/css/main.8bbcb0a7.chunk.css.map",
-    "static/js/2.529988b1.chunk.js.LICENSE.txt": "/staple/static/js/2.529988b1.chunk.js.LICENSE.txt"
+    "static/css/main.54e4a5b9.chunk.css.map": "/staple/static/css/main.54e4a5b9.chunk.css.map",
+    "static/js/2.37c437bc.chunk.js.LICENSE.txt": "/staple/static/js/2.37c437bc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d4a6a492.js",
-    "static/js/2.529988b1.chunk.js",
-    "static/css/main.8bbcb0a7.chunk.css",
-    "static/js/main.e179880e.chunk.js"
+    "static/js/2.37c437bc.chunk.js",
+    "static/css/main.54e4a5b9.chunk.css",
+    "static/js/main.9b5c0aca.chunk.js"
   ]
 }
