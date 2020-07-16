@@ -48,11 +48,12 @@ def login():
             #checks to see if password from form matches the found user
             if request.form['password'] == login_user['password']:
                 session['username'] = request.form['username']     #set session user to the logged in user
-
-                #Profile page Feature to be added later #return redirect(url_for('profile'))
-
-                #return {'user' : login_user['password']}#login_user} #return the user object or username? decide later
-                return redirect(url_for('index'))    #FOR TESTING ONLY, uncomment above for final
+                #return {'user' : login_user['name']}#login_user} #return the user object or username? decide later
+                return render_template('index.html')    #FOR TESTING ONLY, uncomment above for final
+            else:
+                flash('Invalid login') 
+                #return {'response': status.HTTP_401_UNAUTHORIZED }
+                render_template('failure.html')    #FOR TESTING ONLY, uncomment above for final
         else:
             return 'Invalid login information'
             #return {'failure': status.HTTP_401_UNAUTHORIZED }
@@ -85,11 +86,6 @@ def register():
         #return None if the username exists already
         return 'Username/password exists'
     return {'response': status.HTTP_401_UNAUTHORIZED }
-
-#future profile feature
-# @app.route('/profile')
-# def profile():
-#     return render_template('profile.html', name=users.username)
 
 #view a single API's Docs
 @app.route('/view/<api_id>', methods=['GET'])
