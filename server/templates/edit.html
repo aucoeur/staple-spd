@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" action="/posts/new">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            <form action="/posts/new" method="post">
+            <legend>Edit API Documentation</legend>
+            <div class="form-group">
+                <label for="post-title">API Name</label>
+                <input type="text" name="api" class="form-control" id="post-title" placeholder="Title">
+            </div>
+            <div class="form-group">
+                <label for="post-url">Documentation</label>
+                <input type="text" name="documentation" class="form-control" id="post-url" placeholder="Documentation">
+            </div>
+            <div class='text-right'>
+                <button type="submit" class="btn btn-primary">Create Post</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

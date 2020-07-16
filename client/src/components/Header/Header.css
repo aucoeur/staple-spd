@@ -3,4 +3,35 @@
     color: white;
     display: flex;
     justify-content: space-between;
+    align-content: center;
+}
+
+h1 {
+  margin: 0.2em 0.5em;
+
+}
+
+.authButtons {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    padding: 0 1em;
+}
+
+input[type='button'] {
+  height: 1.75em;
+  width: 90px;
+  font-size: 1em;
+  font-weight: bold;
+  border: 1px solid #000;
+  border-radius: 0.25em;
+  margin: 0 .25em;
+  outline: none;
+}
+
+input[type='button']:hover {
+  color: #000;
+  background-color: #fff;
+  outline: none;
 }

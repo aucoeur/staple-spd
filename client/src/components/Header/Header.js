@@ -1,22 +1,38 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom';
 import './Header.css'
+// import ModalButton from '../Modal/ModalButton.js'
 
 function Header(props) {
     const { logo, companyName } = props
+
+    // const [ json, setJSON ] = useState('')
+
+    // useEffect(() => {
+    //     fetch('/create')
+    //     .then((res) => {
+    //         return res.json()
+    //     })
+    //     .then((text) => {
+    //         setJSON(text.hello)
+    //     })
+    // })
 
     return (
         <div className="header">
             <div className="badge">
                 <div className="logo">{logo}</div>
-                <div>{companyName}</div>
+                <h1>{companyName}</h1>
             </div>
 
-            <div className="authbuttons">
-                <button>Login</button>
-                <button>Log Out</button>
+            <div className="authButtons">
+                <NavLink to='/create'>
+                    <input type="button" value="New File" />
+                </NavLink>
+                <input type="button" value="Sign Up" />
             </div>
         </div>
     )
 }
 
-export default Header
+export default Header;
