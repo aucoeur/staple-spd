@@ -126,23 +126,29 @@ def create():
             return redirect(url_for('login'))
 
     if request.method == 'POST':
-        title = request.form['api_name'].upper()      #make API uppercase
-        existing_docs = docs.find_one({'api_name' : title}) #check to see if theere docs with that title already
+        #make API uppercase
+        # title = request.form['api_name'].upper()
+        content = request.json
+        # existing_docs = docs.find_one({'api_name' : title}) #check to see if theere docs with that title already
 
-        #if api doest exist already create new api + docs
-        if existing_docs is None:
-            #create new dictionary to insert to db
-            doc = {
-                'api_name' : title, 
-                'documentation': request.form['documentation']
-            }   
-            db.docs.insert_one(doc)      #insert to db#doc_info = db.docs.insert_one(doc)      #insert to db
+        # #if api doest exist already create new api + docs
+        # if existing_docs is None:
+        #     #create new dictionary to insert to db
+        #     doc = {
+        #         'api_name' : title, 
+        #         # 'documentation': request.form['documentation']
+        #         'body': request.form['body']
+        #     }   
+        #     db.docs.insert_one(doc)      #insert to db#doc_info = db.docs.insert_one(doc)      #insert to db
             #return redirect(url_for('view', id=doc_info._id))           #redirect them to login after registering
-            return render_template('index.html')    #FOR TESTING ONLY, uncomment above for final
+            # return render_template('index.html')
+        print(content)    
+        return jsonify(content=content)
+            # #FOR TESTING ONLY, uncomment above for final
 
         
         #return None if the username exists already
-        return {'response': status.HTTP_401_UNAUTHORIZED }
+        # return {'response': status.HTTP_401_UNAUTHORIZED }
 
 #logout
 @app.route('/logout')
@@ -153,7 +159,7 @@ def logout():
 @app.route('/test')
 def test():
     # return '{hello: world}'
-    return jsonify(hello='hello')
+    return jsonify(hello='world')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))

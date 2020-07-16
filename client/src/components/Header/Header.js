@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import './Header.css'
-import ModalButton from '../Modal/ModalButton.js'
+// import ModalButton from '../Modal/ModalButton.js'
 
 function Header(props) {
     const { logo, companyName } = props
 
     const [ test, setTest ] = useState('')
     useEffect(() => {
-        fetch('/test')
+        fetch('/create')
         .then((res) => {
             return res.json()
         })
