@@ -143,7 +143,8 @@ def create():
             #return redirect(url_for('view', id=doc_info._id))           #redirect them to login after registering
             # return render_template('index.html')
         print(content)    
-        return jsonify(content=content)
+        # return jsonify(content=content)
+        return { 'content': content }
             # #FOR TESTING ONLY, uncomment above for final
 
         
