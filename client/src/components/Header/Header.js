@@ -29,6 +29,9 @@ function Header(props) {
                 <NavLink to='/create'>
                     <input type="button" value="New File" />
                 </NavLink>
+                <NavLink to='/login'>
+                    <input type="button" value="Login" />
+                </NavLink>
                 <input type="button" value="Sign Up" />
             </div>
         </div>
